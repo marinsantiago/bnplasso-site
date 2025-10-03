@@ -1,1 +1,1 @@
-# bnplasso_site
+# bnplasso-site
