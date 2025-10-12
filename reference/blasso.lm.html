@@ -91,8 +91,10 @@ gamma distribution used as hyper-prior in the shrinkage parameter,
 
 
 <dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
-<dd><p>Logical. If <code>TRUE</code> an intercept term is included in the
-model; otherwise, the intercept is integrated out. Default is <code>TRUE</code>.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, an intercept term is included in the
+model; otherwise, the intercept is integrated out. If <code>TRUE</code>, the
+prior on the intercept would be a non-informative prior of the form
+\(p(\mu)\propto 1\). Default is <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-variance-prior-type">variance.prior.type<a class="anchor" aria-label="anchor" href="#arg-variance-prior-type"></a></dt>

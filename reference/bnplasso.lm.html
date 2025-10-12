@@ -95,8 +95,10 @@ parameter in the DP prior.</p></dd>
 
 
 <dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
-<dd><p>Logical. If <code>TRUE</code> an intercept term is included in the
-model; otherwise, the intercept is integrated out. Default is <code>FALSE</code>.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, an intercept term is included in the
+model; otherwise, the intercept is integrated out. If <code>TRUE</code>, the
+prior on the intercept would be a non-informative prior of the form
+\(p(\mu)\propto 1\). Default is <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-variance-prior-type">variance.prior.type<a class="anchor" aria-label="anchor" href="#arg-variance-prior-type"></a></dt>
@@ -173,7 +175,7 @@ Default is 1.</p></dd>
     <h2>References</h2>
     <p>S. Marin, B. Long,and A. H. Westveld (2025+), Adaptive Shrinkage with a
 Nonparametric Bayesian Lasso.<em>Journal of Computational and Graphical
-Statistics</em> (to appear).</p>
+Statistics</em>. doi:10.1080/10618600.2025.2572327</p>
 <p>G. E. Moran, V. Rockova, and E. I. George (2019), Variance Prior Forms for
 High-Dimensional Bayesian Variable Selection. <em>Bayesian Analysis</em>,
 14(4):1091-1119.</p>
