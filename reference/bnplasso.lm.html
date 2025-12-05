@@ -9,7 +9,7 @@ Bayesian Lasso prior as in Marin et al. (2025+)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">bnplasso</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,6 +18,7 @@ Bayesian Lasso prior as in Marin et al. (2025+)."></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/marinsantiago/bnplasso/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -30,7 +31,7 @@ Bayesian Lasso prior as in Marin et al. (2025+)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit linear regression models with a nonparametric Bayesian Lasso prior</h1>
-      <small class="dont-index">Source: <a href="https://github.com/marinsantiago/bnplasso/blob/HEAD/R/bnplasso.R" class="external-link"><code>R/bnplasso.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/marinsantiago/bnplasso/blob/HEAD/R/bnplasso_lm.R" class="external-link"><code>R/bnplasso_lm.R</code></a></small>
       <div class="d-none name"><code>bnplasso.lm.Rd</code></div>
     </div>
 
@@ -44,14 +45,16 @@ Bayesian Lasso prior as in Marin et al. (2025+).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bnplasso.lm</span><span class="op">(</span></span>
 <span>  <span class="va">X</span>,</span>
 <span>  <span class="va">y</span>,</span>
-<span>  <span class="va">a</span>,</span>
-<span>  <span class="va">b</span>,</span>
-<span>  <span class="va">alpha</span>,</span>
-<span>  intercept <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  variance.prior.type <span class="op">=</span> <span class="st">"independent"</span>,</span>
+<span>  intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  prior <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  a <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  b <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  variance.prior.type <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max.iters <span class="op">=</span> <span class="fl">6000L</span>,</span>
 <span>  burn.in <span class="op">=</span> <span class="fl">1000L</span>,</span>
-<span>  thin <span class="op">=</span> <span class="fl">1L</span></span>
+<span>  thin <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  float <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -68,34 +71,60 @@ of the \(n\) rows is an observation vector.</p></dd>
 <dd><p>Response variable. It should be a numeric vector size \(n\).</p></dd>
 
 
+<dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>, an intercept term is included in
+the model; otherwise, the intercept is integrated out. If <code>TRUE</code>, the
+prior on the intercept would be a non-informative prior of the form
+\(p(\mu)\propto 1\). Default is <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-prior">prior<a class="anchor" aria-label="anchor" href="#arg-prior"></a></dt>
+<dd><p>A character string denoting which type of shrinkage prior
+should be employed. The options are either: (a) <code>"bnp.lasso"</code> which
+implements the nonparametric Bayesian Lasso as in Marin et al. (2025+),
+(b) <code>"b.lasso"</code> which implements the Bayesian Lasso as in Park and
+Casella (2008), or (c) <code>"b.adapt.lasso"</code> which implements the Bayesian
+adaptive Lasso as in Leng et al. (2014). Default is <code>"bnp.lasso"</code>.</p></dd>
+
+
 <dt id="arg-a">a<a class="anchor" aria-label="anchor" href="#arg-a"></a></dt>
-<dd><p>A positive scalar corresponding to the <b>shape</b> parameter in the
-gamma distribution used as a centering measure in the DP prior.</p></dd>
+<dd><p>A positive scalar. If <code>prior = "bnp.lasso"</code>, it
+corresponds to the <b>shape</b> parameter in the gamma distribution used
+as a centering measure in the DP prior. If <code>prior = "b.lasso"</code>,
+it corresponds to the <b>shape</b> parameter in the gamma distribution used
+as prior in the shrinkage parameter, \(\lambda^{2}\). If
+<code>prior = "b.adapt.lasso"</code>, it corresponds to the <b>shape</b>
+parameter in the gamma distribution used as prior in the shrinkage
+parameters, \(\lambda_{j}^{2}\), for \(j\in\{1,\dots,p\}\). If not
+provided, the function will attempt to determine an appropriate value.</p></dd>
 
 
 <dt id="arg-b">b<a class="anchor" aria-label="anchor" href="#arg-b"></a></dt>
-<dd><p>A positive scalar corresponding to the <b>rate</b> parameter in the
-gamma distribution used as a centering measure in the DP prior.</p></dd>
+<dd><p>A positive scalar. If <code>prior = "bnp.lasso"</code>, it
+corresponds to the <b>rate</b> parameter in the gamma distribution used
+as a centering measure in the DP prior. If <code>prior = "b.lasso"</code>,
+it corresponds to the <b>rate</b> parameter in the gamma distribution used
+as prior in the shrinkage parameter, \(\lambda^{2}\). If
+<code>prior = "b.adapt.lasso"</code>, it corresponds to the <b>rate</b>
+parameter in the gamma distribution used as prior in the shrinkage
+parameters, \(\lambda_{j}^{2}\), for \(j\in\{1,\dots,p\}\). If not
+provided, the function will attempt to determine an appropriate value.</p></dd>
 
 
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
-<dd><p>A positive scalar corresponding to the <b>concentration</b>
-parameter in the DP prior.</p></dd>
-
-
-<dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
-<dd><p>Logical. If <code>TRUE</code>, an intercept term is included in the
-model; otherwise, the intercept is integrated out. If <code>TRUE</code>, the
-prior on the intercept would be a non-informative prior of the form
-\(p(\mu)\propto 1\). Default is <code>FALSE</code>.</p></dd>
+<dd><p>A positive scalar. If <code>prior = "bnp.lasso"</code>, it
+corresponds to the <b>concentration</b> parameter in the DP prior. If
+<code>prior = "b.lasso"</code> or <code>prior = "b.adapt.lasso"</code>,
+the argument is ignored. If not provided, the function will attempt to
+determine an appropriate value.</p></dd>
 
 
 <dt id="arg-variance-prior-type">variance.prior.type<a class="anchor" aria-label="anchor" href="#arg-variance-prior-type"></a></dt>
 <dd><p>A character string denoting whether the variance
 on the sampling variance should be an independent-type prior or a
 conjugate-type prior. See Moran et al. (2019) for details. The options are
-either <code>"independent"</code> or <code>"conjugate"</code>.
-Default is <code>"independent"</code>.</p></dd>
+either <code>"independent"</code> or <code>"conjugate"</code>. If not provided, the
+function will attempt to determine an appropriate value.</p></dd>
 
 
 <dt id="arg-max-iters">max.iters<a class="anchor" aria-label="anchor" href="#arg-max-iters"></a></dt>
@@ -113,6 +142,13 @@ Default is 1000.</p></dd>
 <dd><p>A positive integer specifying the period for saving samples.
 Default is 1.</p></dd>
 
+
+<dt id="arg-float">float<a class="anchor" aria-label="anchor" href="#arg-float"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>, some internal routines will use single
+point precision for improved computational efficiency at the expense of
+numerical accuracy. If <code>FALSE</code>, double point precision will be used.
+Default is <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -126,22 +162,32 @@ Default is 1.</p></dd>
 <li><p><code>Post.lambda2</code>: A matrix of size
   <code>n.draws</code>-by-<code>n.preds</code>, where each row is a posterior draw of the
   shrinkage parameters \(\lambda_{j}^{2}\).</p></li>
-<li><p><code>Post.clust_idx</code>: A matrix of size
-  <code>n.draws</code>-by-<code>n.preds</code>, where each row indicates to which cluster
-  the regression coefficients belong to.</p></li>
-<li><p><code>Post.K</code>: A vector of size <code>n.draws</code>, where each element
-  indicates the number of clusters in the corresponding MCMC iteration.</p></li>
-<li><p><code>Post.mu</code>: A vector of size <code>n.draws</code>, where each element
-  is a posterior draw of the intercept term.</p></li>
+<li><p><code>Post.clust_idx</code>: If <code>prior = "bnp.lasso"</code>, a matrix of
+  size <code>n.draws</code>-by-<code>n.preds</code>, where each row indicates to which
+  cluster the regression coefficients belong to.</p></li>
+<li><p><code>Post.K</code>: If <code>prior = "bnp.lasso"</code>, a vector of size
+  <code>n.draws</code>, where each element indicates the number of clusters in the
+  corresponding MCMC iteration.</p></li>
+<li><p><code>Post.mu</code>: If <code>intercept = "TRUE"</code>, a vector of size
+  <code>n.draws</code>, where each entry is a posterior draw of the intercept term.</p></li>
 <li><p><code>elapsed</code>: The elapsed (wall-clock) time of the MCMC sampler.</p></li>
-<li><p><code>a</code>: The <b>shape</b> parameter in the gamma distribution
-  used as a centering measure in the Dirichlet process prior.</p></li>
-<li><p><code>b</code>: The <b>rate</b> parameter in the gamma distribution
-  used as a centering measure in the Dirichlet process prior.</p></li>
-<li><p><code>alpha</code>: The <b>concentration</b> parameter in the Dirichlet
-  process prior.</p></li>
-<li><p><code>intercept</code>: Whether or not an intercept term was included in
-  the model.</p></li>
+<li><p><code>a</code>: If <code>prior = "bnp.lasso"</code>, the <b>shape</b> parameter
+  in the gamma distribution used as a centering measure in the DP prior.
+  If <code>prior = "b.lasso"</code>, the <b>shape</b> parameter in the gamma
+  distribution used as prior in the shrinkage parameter, \(\lambda^{2}\).
+  If <code>prior = "b.adapt.lasso"</code>, the <b>shape</b> parameter in the gamma
+  distribution used as prior in the shrinkage parameters,
+  \(\lambda_{j}^{2}\), for \(j\in\{1,\dots,p\}\).</p></li>
+<li><p><code>b</code>: If <code>prior = "bnp.lasso"</code>, the <b>rate</b> parameter
+  in the gamma distribution used as a centering measure in the DP prior.
+  If <code>prior = "b.lasso"</code>, the <b>rate</b> parameter in the gamma
+  distribution used as prior in the shrinkage parameter, \(\lambda^{2}\).
+  If <code>prior = "b.adapt.lasso"</code>, the <b>rate</b> parameter in the gamma
+  distribution used as prior in the shrinkage parameters,
+  \(\lambda_{j}^{2}\), for \(j\in\{1,\dots,p\}\).</p></li>
+<li><p><code>alpha</code>: If <code>prior = "bnp.lasso"</code>, the <b>concentration</b>
+  parameter in the Dirichlet process prior.</p></li>
+<li><p><code>intercept</code>: Whether an intercept was included in the model.</p></li>
 <li><p><code>variance.prior.type</code>: Whether the variance on the sampling
   variance was an independent-type prior or a conjugate-type prior.</p></li>
 <li><p><code>max.iters</code>: The total number of MCMC iterations.</p></li>
@@ -153,6 +199,8 @@ Default is 1.</p></dd>
   thinning.</p></li>
 <li><p><code>X</code>: Matrix of predictors.</p></li>
 <li><p><code>y</code>: Vector of responses.</p></li>
+<li><p><code>loglik</code>: Matrix of size <code>n.draws</code>-by-<code>n.obs</code> with the
+  log-likelihood of each observation at each MCMC iteration.</p></li>
 <li><p><code>post.pred.fitted.values</code>: A matrix of size
   <code>n.draws</code>-by-<code>n.obs</code>, where each row is a draw from the posterior
   predictive distribution of the fitted values.</p></li>
@@ -162,12 +210,16 @@ Default is 1.</p></dd>
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>S. Marin, B. Long,and A. H. Westveld (2025+), Adaptive Shrinkage with a
+    <p>C. Leng, MN. Tran, and D. Nott (2014), Bayesian adaptive Lasso.
+<em>Ann Inst Stat Math</em>, 66:221-244</p>
+<p>S. Marin, B. Long,and A. H. Westveld (2025+), Adaptive Shrinkage with a
 Nonparametric Bayesian Lasso.<em>Journal of Computational and Graphical
 Statistics</em>. doi:10.1080/10618600.2025.2572327</p>
 <p>G. E. Moran, V. Rockova, and E. I. George (2019), Variance Prior Forms for
 High-Dimensional Bayesian Variable Selection. <em>Bayesian Analysis</em>,
 14(4):1091-1119.</p>
+<p>T. Park, and G. Casella (2008), The Bayesian Lasso.
+<em>Journal of the American Statistical Association</em>, 103(482):681-686.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
