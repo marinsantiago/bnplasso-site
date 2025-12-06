@@ -9,7 +9,7 @@ Bayesian Lasso prior as in Marin et al. (2025+)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">bnplasso</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,25 +152,26 @@ Default is <code>FALSE</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of S3 class, "lmBayes", containing:</p><ul><li><p><code>Post.beta</code>: A matrix of size <code>n.draws</code>-by-<code>n.preds</code>,
+    <p>An object of S3 class, "lmBayes", containing:</p><ul><li><p><code>post.beta</code>: A matrix of size <code>n.draws</code>-by-<code>n.preds</code>,
   where each row is a posterior draw of the regression coefficients.</p></li>
-<li><p><code>Post.sigma2</code>: A vector of size <code>n.draws</code>, where each
+<li><p><code>post.sigma2</code>: A vector of size <code>n.draws</code>, where each
   element is a posterior draw of the sampling variance.</p></li>
-<li><p><code>Post.tau2</code>: A matrix of size <code>n.draws</code>-by-<code>n.preds</code>,
+<li><p><code>post.tau2</code>: A matrix of size <code>n.draws</code>-by-<code>n.preds</code>,
   where each row is a posterior draw of the latent parameters
   \(\tau_{j}^{2}\).</p></li>
-<li><p><code>Post.lambda2</code>: A matrix of size
+<li><p><code>post.lambda2</code>: A matrix of size
   <code>n.draws</code>-by-<code>n.preds</code>, where each row is a posterior draw of the
   shrinkage parameters \(\lambda_{j}^{2}\).</p></li>
-<li><p><code>Post.clust_idx</code>: If <code>prior = "bnp.lasso"</code>, a matrix of
+<li><p><code>post.clust_idx</code>: If <code>prior = "bnp.lasso"</code>, a matrix of
   size <code>n.draws</code>-by-<code>n.preds</code>, where each row indicates to which
   cluster the regression coefficients belong to.</p></li>
-<li><p><code>Post.K</code>: If <code>prior = "bnp.lasso"</code>, a vector of size
+<li><p><code>post.K</code>: If <code>prior = "bnp.lasso"</code>, a vector of size
   <code>n.draws</code>, where each element indicates the number of clusters in the
   corresponding MCMC iteration.</p></li>
-<li><p><code>Post.mu</code>: If <code>intercept = "TRUE"</code>, a vector of size
+<li><p><code>post.mu</code>: If <code>intercept = "TRUE"</code>, a vector of size
   <code>n.draws</code>, where each entry is a posterior draw of the intercept term.</p></li>
-<li><p><code>elapsed</code>: The elapsed (wall-clock) time of the MCMC sampler.</p></li>
+<li><p><code>elapsed</code>: The elapsed (wall-clock) time of the MCMC sampler,
+  in seconds.</p></li>
 <li><p><code>a</code>: If <code>prior = "bnp.lasso"</code>, the <b>shape</b> parameter
   in the gamma distribution used as a centering measure in the DP prior.
   If <code>prior = "b.lasso"</code>, the <b>shape</b> parameter in the gamma
