@@ -120,11 +120,11 @@ determine an appropriate value.</p></dd>
 
 
 <dt id="arg-variance-prior-type">variance.prior.type<a class="anchor" aria-label="anchor" href="#arg-variance-prior-type"></a></dt>
-<dd><p>A character string denoting whether the variance
+<dd><p>A character string denoting whether the prior
 on the sampling variance should be an independent-type prior or a
 conjugate-type prior. See Moran et al. (2019) for details. The options are
 either <code>"independent"</code> or <code>"conjugate"</code>. If not provided, the
-function will attempt to determine an appropriate value.</p></dd>
+function will attempt to determine an appropriate prior.</p></dd>
 
 
 <dt id="arg-max-iters">max.iters<a class="anchor" aria-label="anchor" href="#arg-max-iters"></a></dt>
@@ -152,7 +152,7 @@ Default is <code>FALSE</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of S3 class, "lmBayes", containing:</p><ul><li><p><code>post.beta</code>: A matrix of size <code>n.draws</code>-by-<code>n.preds</code>,
+    <p>An object of S3 class, <code>'lmBayes'</code>, containing:</p><ul><li><p><code>post.beta</code>: A matrix of size <code>n.draws</code>-by-<code>n.preds</code>,
   where each row is a posterior draw of the regression coefficients.</p></li>
 <li><p><code>post.sigma2</code>: A vector of size <code>n.draws</code>, where each
   element is a posterior draw of the sampling variance.</p></li>

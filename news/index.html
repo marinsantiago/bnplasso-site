@@ -35,12 +35,12 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="bnplasso-021">bnplasso 0.2.1<a class="anchor" aria-label="anchor" href="#bnplasso-021"></a></h2>
 <ul><li>The package now includes the functions <code><a href="../reference/psis.loo.html">psis.loo()</a></code> and <code><a href="../reference/widely.aic.html">widely.aic()</a></code>, which compute the Pareto-smoothed importance sampling leave-one-out information criterion (PSIS-LOO) and the Watanabe–Akaike information criterion (WAIC), respectively.</li>
-<li>GitHub version: <a href="">marinsantiago/bnplasso@153db6a</a>
+<li>GitHub version: <a href="">marinsantiago/bnplasso@dbe45f9</a>
 </li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="bnplasso-020">bnplasso 0.2.0<a class="anchor" aria-label="anchor" href="#bnplasso-020"></a></h2>
-<ul><li>The functions <code>blasso.lm()</code> and <code>balasso.lm()</code> have been merged into a single function, <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code>. A new argument, <code>prior</code>, has been introduced in <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code> to allow users to specify the type of prior to use: a nonparametric Bayesian Lasso prior (default), a Bayesian Lasso prior, or a Bayesian adaptive Lasso prior.</li>
+<ul><li>The functions <code>blasso.lm()</code> and <code>balasso.lm()</code> have been merged into the function, <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code>. A new argument, <code>prior</code>, has been introduced in <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code>, which specifies the type of shrinkage prior that should be employed. The options are: (a) a nonparametric Bayesian Lasso prior (default), (b) a Bayesian Lasso prior, or (c) a Bayesian adaptive Lasso prior.</li>
 <li>The <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code> function now supports single-precision floating-point calculations for certain internal routines via the <code>float</code> argument. By default, the function still uses double point precision.</li>
 <li>By default, the <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code> function now includes an intercept term in the regression function.</li>
 <li>The <code><a href="../reference/bnplasso.lm.html">bnplasso.lm()</a></code> function now returns the log-likelihood of each observation at each MCMC iteration.</li>
