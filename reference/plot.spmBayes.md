@@ -1,7 +1,7 @@
 # Plot the results and diagnostics for an object of class `spmBayes`
 
-Produces posterior predictive and residual diagnostic plots for an
-object of class `'spmBayes'`.
+Produces posterior predictive diagnostic plots for an object of class
+`'spmBayes'`.
 
 ## Usage
 
