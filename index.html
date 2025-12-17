@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">bnplasso</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,8 +108,8 @@
 <p>Finally, let’s generate the responses.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">y.train</span> <span class="op">&lt;-</span> <span class="va">mu</span> <span class="op">+</span> <span class="va">X.train</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">beta</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n.train</span>, <span class="fl">0</span>, <span class="va">sigma</span><span class="op">)</span></span>
-<span><span class="va">y.test</span> <span class="op">&lt;-</span> <span class="va">mu</span> <span class="op">+</span> <span class="va">X.test</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">beta</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n.test</span>, <span class="fl">0</span>, <span class="va">sigma</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">y.train</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">mu</span> <span class="op">+</span> <span class="va">X.train</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">beta</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n.train</span>, <span class="fl">0</span>, <span class="va">sigma</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">y.test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">mu</span> <span class="op">+</span> <span class="va">X.test</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">beta</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n.test</span>, <span class="fl">0</span>, <span class="va">sigma</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can then easily apply the nonparametric Bayesian Lasso (Marin et al., 2025+) to these data through the function <code><a href="reference/bnplasso.lm.html">bnplasso.lm()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
@@ -118,7 +118,10 @@
 <p>The method <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> provides information about the model fit.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">out.bnp</span><span class="op">)</span></span></code></pre></div>
-<pre><code>NONPARAMETRIC BAYESIAN LASSO
+<pre><code>LINEAR REGRESSION MODEL
+
+
+NONPARAMETRIC BAYESIAN LASSO
 
 
 Call details:
@@ -129,7 +132,7 @@ alpha = 0.4014365
 n.obs = 250
 n.preds = 200
 n.draws = 5000 (after burn-in and thinning)
-elapsed = 11.53845 secs
+elapsed = 10.58291 secs
 
 Coefficients:
             mean    sd   2.5%    25%    50%    75%  97.5%     n_eff
@@ -138,6 +141,7 @@ beta_1     4.931 0.086  4.767  4.873  4.929  4.990  5.103 5000.0000
 beta_2     5.114 0.108  4.897  5.042  5.112  5.188  5.323 5000.0000
 beta_3     5.003 0.111  4.790  4.928  5.004  5.077  5.216 3759.5150
 beta_4     5.114 0.107  4.904  5.041  5.115  5.185  5.325 4162.1842
+beta_5     4.737 0.107  4.525  4.665  4.738  4.809  4.944 5000.0000
 ⋮</code></pre>
 <p>It includes details about the function call, as well as the posterior mean, posterior standard deviation, various posterior quantiles, and the MCMC effective sample size for each of the model parameters.</p>
 <p>The method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produces various model diagnostics plots, including posterior predictive checks and residual diagnostics.</p>

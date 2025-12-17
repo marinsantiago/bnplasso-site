@@ -2,8 +2,9 @@
 
 This function computes the Pareto-smoothed importance sampling
 leave-one-out information criterion (PSIS-LOO) for an object of class
-`lmBayes`. The PSIS-LOO is converted into deviance scale so that it is
-comparable with other information criteria like AIC and BIC.
+`lmBayes` or `spmBayes`. The PSIS-LOO is converted into deviance scale
+so that it is comparable with other information criteria like AIC and
+BIC.
 
 ## Usage
 
@@ -15,7 +16,7 @@ psis.loo(object, comp.r_eff = TRUE)
 
 - object:
 
-  An object of class `'lmBayes'`.
+  An object of class `'lmBayes'` or `'spmBayes'`.
 
 - comp.r_eff:
 

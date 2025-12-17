@@ -9,6 +9,9 @@
 - [`bnplasso.lm()`](bnplasso.lm.md) : Fit linear regression models with
   a nonparametric Bayesian Lasso prior
 
+- [`bnplasso.spm()`](bnplasso.spm.md) : Fit sparse means models with a
+  nonparametric Bayesian Lasso prior
+
 - [`coclust.point()`](coclust.point.md) : Posterior co-clustering plot
 
 - [`coclust.probs()`](coclust.probs.md) : Posterior co-clustering
@@ -16,10 +19,14 @@
 
 - [`coef(`*`<lmBayes>`*`)`](coef.lmBayes.md) : Regression coefficients
 
+- [`coef(`*`<spmBayes>`*`)`](coef.spmBayes.md) : Mean parameters
+
 - [`elppd()`](elppd.md) : Expected log pointwise predictive density
   (elppd)
 
 - [`fitted(`*`<lmBayes>`*`)`](fitted.lmBayes.md) : Fitted values
+
+- [`fitted(`*`<spmBayes>`*`)`](fitted.spmBayes.md) : Fitted values
 
 - [`get.partition()`](get.partition.md) : Recover a partition
 
@@ -27,9 +34,12 @@
 
   Plot the results and diagnostics for an object of class `lmBayes`
 
-- [`point.estimates()`](point.estimates.md) :
+- [`plot(`*`<spmBayes>`*`)`](plot.spmBayes.md) :
 
-  Point estimates of the regression coefficients `lmBayes`
+  Plot the results and diagnostics for an object of class `spmBayes`
+
+- [`point.estimates()`](point.estimates.md) : Point estimates of the
+  regression coefficients
 
 - [`predict(`*`<lmBayes>`*`)`](predict.lmBayes.md) : Posterior
   predictive distribution for new data
@@ -37,6 +47,10 @@
 - [`print(`*`<lmBayes>`*`)`](print.lmBayes.md) :
 
   Print the results for an object of class `lmBayes`
+
+- [`print(`*`<spmBayes>`*`)`](print.spmBayes.md) :
+
+  Print the results for an object of class `spmBayes`
 
 - [`psis.loo()`](psis.loo.md) : PSIS-LOO
 
@@ -47,5 +61,9 @@
 - [`summary(`*`<lmBayes>`*`)`](summary.lmBayes.md) :
 
   Summary table of the results for an object of class `lmBayes`
+
+- [`summary(`*`<spmBayes>`*`)`](summary.spmBayes.md) :
+
+  Summary table of the results for an object of class `spmBayes`
 
 - [`widely.aic()`](widely.aic.md) : WAIC

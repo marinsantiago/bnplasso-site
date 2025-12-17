@@ -1,19 +1,19 @@
-# Point estimates of the regression coefficients `lmBayes`
+# Point estimates of the regression coefficients
 
 Computes point estimates of the regression coefficients for an object of
-class `lmBayes`.
+class `lmBayes` or `'spmBayes'`.
 
 ## Usage
 
 ``` r
-point.estimates(object, type = "sn", retain = "mode")
+point.estimates(object, type = "sn", retain = "mean")
 ```
 
 ## Arguments
 
 - object:
 
-  An object of class 'lmBayes'.
+  An object of class `'lmBayes'` or `'spmBayes'`.
 
 - type:
 

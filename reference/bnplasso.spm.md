@@ -1,15 +1,13 @@
-# Fit linear regression models with a nonparametric Bayesian Lasso prior
+# Fit sparse means models with a nonparametric Bayesian Lasso prior
 
-This function fits linear regression models with a nonparametric
-Bayesian Lasso prior as in Marin et al. (2025+).
+This function fits sparse means models with a nonparametric Bayesian
+Lasso prior (Marin et al., 2025+).
 
 ## Usage
 
 ``` r
-bnplasso.lm(
-  X,
+bnplasso.spm(
   y,
-  intercept = TRUE,
   prior = NULL,
   a = NULL,
   b = NULL,
@@ -18,28 +16,16 @@ bnplasso.lm(
   max.iters = 6000L,
   burn.in = 1000L,
   thin = 1L,
-  polya = TRUE,
+  polya = FALSE,
   float = FALSE
 )
 ```
 
 ## Arguments
 
-- X:
-
-  A matrix of predictors of dimension \\n\\-by-\\p\\, where each of the
-  \\n\\ rows is an observation vector.
-
 - y:
 
   Response variable. It should be a numeric vector size \\n\\.
-
-- intercept:
-
-  Logical. If `TRUE`, an intercept term is included in the model;
-  otherwise, the intercept is integrated out. If `TRUE`, the prior on
-  the intercept would be a non-informative prior of the form
-  \\p(\mu)\propto 1\\. Default is `TRUE`.
 
 - prior:
 
@@ -109,7 +95,7 @@ bnplasso.lm(
   logical. Whether a generalized Pólya urn sampling scheme or a blocked
   Gibbs sampling scheme should be employed to update the Dirichlet
   process mixture in the MCMC algorithm. If `TRUE`, a generalized Pólya
-  urn sampling scheme would be used. Default is `TRUE`. Important: This
+  urn sampling scheme would be used. Default is `FALSE`. Important: This
   argument is ignored if `prior != "bnp.lasso"`
 
 - float:
@@ -121,7 +107,7 @@ bnplasso.lm(
 
 ## Value
 
-An object of S3 class, `'lmBayes'`, containing:
+An object of S3 class, `'spmBayes'`, containing:
 
 - `post.beta`: A matrix of size `n.draws`-by-`n.preds`, where each row
   is a posterior draw of the regression coefficients.
@@ -143,9 +129,6 @@ An object of S3 class, `'lmBayes'`, containing:
 - `post.K`: If `prior = "bnp.lasso"`, a vector of size `n.draws`, where
   each element indicates the number of clusters in the corresponding
   MCMC iteration.
-
-- `post.mu`: If `intercept = "TRUE"`, a vector of size `n.draws`, where
-  each entry is a posterior draw of the intercept term.
 
 - `elapsed`: The elapsed (wall-clock) time of the MCMC sampler, in
   seconds.
@@ -169,8 +152,6 @@ An object of S3 class, `'lmBayes'`, containing:
 - `alpha`: If `prior = "bnp.lasso"`, the **concentration** parameter in
   the Dirichlet process prior.
 
-- `intercept`: Whether an intercept was included in the model.
-
 - `variance.prior.type`: Whether the variance on the sampling variance
   was an independent-type prior or a conjugate-type prior.
 
@@ -186,20 +167,13 @@ An object of S3 class, `'lmBayes'`, containing:
 
 - `n.draws`: The number of posterior draws after burn-in and thinning.
 
-- `X`: Matrix of predictors.
-
 - `y`: Vector of responses.
 
 - `loglik`: Matrix of size `n.draws`-by-`n.obs` with the log-likelihood
   of each observation at each MCMC iteration.
 
-- `post.pred.fitted.values`: A matrix of size `n.draws`-by-`n.obs`,
-  where each row is a draw from the posterior predictive distribution of
-  the fitted values.
-
-- `post.pred.residuals`: A matrix of size `n.draws`-by-`n.obs`, where
-  each row is a draw from the posterior predictive distribution of the
-  residuals.
+- `post.pred`: A matrix of size `n.draws`-by-`n.obs`, where each row is
+  a draw from the posterior predictive distribution.
 
 ## References
 
