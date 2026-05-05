@@ -24,11 +24,12 @@ Bayesian adaptive Lasso (Leng et al., 2014).
 
 ## Installation
 
-You can install the latest developer’s version via `devtools` as:
+You can install the latest developer’s version via `pak` as:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("marinsantiago/bnplasso")
+
+# install.packages("pak")
+pak::pak("marinsantiago/bnplasso")
 ```
 
 If you would like to reproduce the results from Marin et al. (2025+),
@@ -36,7 +37,8 @@ you should install the version of the package employed at that time
 (`bnplasso 0.1.0`). That can easily be done by running in R:
 
 ``` r
-devtools::install_github("marinsantiago/bnplasso@3c87169")
+
+pak::pak("marinsantiago/bnplasso@3c87169")
 ```
 
 Alternatively, you can also install the package (`bnplasso 0.1.0`) from
@@ -48,6 +50,7 @@ al. (2025+):
 2.  Run the following R code:
 
 ``` r
+
 # install.packages("devtools")
 devtools::build()
 devtools::install()
@@ -62,12 +65,14 @@ First, let’s start by loading some packages that are not required by
 `bnplasso` but are necessary for this illustrative example.
 
 ``` r
+
 library(mvtnorm)
 ```
 
 Next, let’s generate some synthetic predictors.
 
 ``` r
+
 p <- 200
 rho <- 0.7
 n.train <- 250
@@ -88,6 +93,7 @@ correlation parameter is 0.7 (`rho`).
 Now, we will generate the model parameters.
 
 ``` r
+
 mu <- 10
 sigma <- 1
 beta <- c(rep(5, 20), rep(0, 180))
@@ -100,6 +106,7 @@ generated in a way so that only 10% of its entries are nonzero (`beta`).
 Finally, let’s generate the responses.
 
 ``` r
+
 set.seed(1)
 y.train <- as.vector(mu + X.train %*% beta + rnorm(n.train, 0, sigma))
 y.test <- as.vector(mu + X.test %*% beta + rnorm(n.test, 0, sigma))
@@ -110,6 +117,7 @@ We can then easily apply the nonparametric Bayesian Lasso (Marin et al.,
 [`bnplasso.lm()`](reference/bnplasso.lm.md).
 
 ``` r
+
 set.seed(1)
 out.bnp <- bnplasso::bnplasso.lm(X.train, y.train)
 ```
@@ -125,6 +133,7 @@ The method [`summary()`](https://rdrr.io/r/base/summary.html) provides
 information about the model fit.
 
 ``` r
+
 summary(out.bnp)
 ```
 
@@ -163,6 +172,7 @@ produces various model diagnostics plots, including posterior predictive
 checks and residual diagnostics.
 
 ``` r
+
 plot(out.bnp)
 ```
 
@@ -175,6 +185,7 @@ from each of the model parameters. For instance, let’s extract and plot
 the chains for the `intercept`, `beta_1`, and `beta_200`.
 
 ``` r
+
 plot(out.bnp$post.mu, type = "l", ylab = "", main = "mu")
 plot(out.bnp$post.beta[,1], type = "l", ylab = "", main = "beta_1")
 plot(out.bnp$post.beta[,200], type = "l", ylab = "", main = "beta_200")
@@ -192,6 +203,7 @@ exhibit good mixing!
 Other useful class-specific methods include:
 
 ``` r
+
 print(out.bnp)
 fitted(out.bnp)
 residuals(out.bnp)
@@ -203,6 +215,7 @@ the posterior probabilities that two regression coefficients will be
 clustered together.
 
 ``` r
+
 bnplasso::coclust.probs(out.bnp$post.clust_idx)
 ```
 
@@ -218,6 +231,7 @@ If desired, one can also obtain a point estimate of the partition of the
 regression coefficients.
 
 ``` r
+
 part <- bnplasso::get.partition(out.bnp$post.clust_idx)
 ```
 
@@ -228,6 +242,7 @@ function. One can visualize this partition with the function
 [`coclust.point()`](reference/coclust.point.md).
 
 ``` r
+
 bnplasso::coclust.point(part)
 ```
 
@@ -237,10 +252,12 @@ It is also possible to perform out-of-sample predictions using the
 method [`predict()`](https://rdrr.io/r/stats/predict.html).
 
 ``` r
+
 pprd <- predict(out.bnp, X.test)
 ```
 
 ``` r
+
 dim(pprd)
 ```
 
@@ -251,6 +268,7 @@ column contains posterior predictive draws from each one of the points
 we wish to predict.
 
 ``` r
+
 plot(density(pprd[,1]), lwd = 3, xlab = "", ylab = "", "y_test.1")
 abline(v = y.test[1], col = 2, lwd = 3, lty = 2)
 legend("topright", c("Predicted", "Actual"), lwd = 3, col = 1:2, lty = 1:2)
@@ -271,6 +289,7 @@ performance of the model using the expected log point-wise predictive
 density (elppd) through the function [`elppd()`](reference/elppd.md).
 
 ``` r
+
 bnplasso::elppd(out.bnp, X.test, y.test)
 ```
 
@@ -284,6 +303,7 @@ Pareto-smoothed importance sampling leave-one-out information criterion
 Vehtari et al. (2017).
 
 ``` r
+
 bnplasso::psis.loo(out.bnp)
 bnplasso::widely.aic(out.bnp)
 ```
