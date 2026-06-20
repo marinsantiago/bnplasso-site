@@ -1,7 +1,7 @@
 # Fit linear regression models with a nonparametric Bayesian Lasso prior
 
 This function fits linear regression models with a nonparametric
-Bayesian Lasso prior as in Marin et al. (2025+).
+Bayesian Lasso prior as in Marin et al. (2026).
 
 ## Usage
 
@@ -206,9 +206,9 @@ An object of S3 class, `'lmBayes'`, containing:
 C. Leng, MN. Tran, and D. Nott (2014), Bayesian adaptive Lasso. *Ann
 Inst Stat Math*, 66:221-244
 
-S. Marin, B. Long,and A. H. Westveld (2025+), Adaptive Shrinkage with a
+S. Marin, B. Long,and A. H. Westveld (2026), Adaptive Shrinkage with a
 Nonparametric Bayesian Lasso.*Journal of Computational and Graphical
-Statistics*. doi:10.1080/10618600.2025.2572327
+Statistics*, 35(2):854-864. doi:10.1080/10618600.2025.2572327
 
 G. E. Moran, V. Rockova, and E. I. George (2019), Variance Prior Forms
 for High-Dimensional Bayesian Variable Selection. *Bayesian Analysis*,

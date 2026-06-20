@@ -5,7 +5,7 @@
 The R package `bnplasso` (developer’s version) implements the
 [Nonparametric Bayesian
 Lasso](https://doi.org/10.1080/10618600.2025.2572327) as described in
-Marin et al. (2025+).
+Marin et al. (2026).
 
 The main routine of the package,
 [`bnplasso.lm()`](reference/bnplasso.lm.md), returns an object of S3
@@ -32,8 +32,8 @@ You can install the latest developer’s version via `pak` as:
 pak::pak("marinsantiago/bnplasso")
 ```
 
-If you would like to reproduce the results from Marin et al. (2025+),
-you should install the version of the package employed at that time
+If you would like to reproduce the results from Marin et al. (2026), you
+should install the version of the package employed at that time
 (`bnplasso 0.1.0`). That can easily be done by running in R:
 
 ``` r
@@ -43,7 +43,7 @@ pak::pak("marinsantiago/bnplasso@3c87169")
 
 Alternatively, you can also install the package (`bnplasso 0.1.0`) from
 the `bnplasso` folder in the supplementary materials to Marin et
-al. (2025+):
+al. (2026) via `devtools`:
 
 1.  In R, set your working directory to the folder `bnplasso`.
 
@@ -315,7 +315,7 @@ Additional guidelines and help pages for using the package functions are
 available
 [here](https://marinsantiago.github.io/bnplasso-site/reference/index.html).
 
-Source code and data to reproduce the results from Marin et al. (2025+)
+Source code and data to reproduce the results from Marin et al. (2026)
 are available at <https://github.com/marinsantiago/bnplasso-examples>.
 
 ##  Citation
@@ -325,11 +325,14 @@ our *JCGS* paper:
 
 ``` tex
 @article{marin_bnplasso,
-  title   = {Adaptive Shrinkage with a Nonparametric Bayesian Lasso},
+  title   = {Adaptive Shrinkage with a Nonparametric {B}ayesian Lasso},
   author  = {Santiago Marin and Bronwyn Loong and Anton H. Westveld},
   journal = {Journal of Computational and Graphical Statistics},
-  year    = {2025},
-  doi     = {10.1080/10618600.2025.2572327},
+  volume  = {35},
+  number  = {2},
+  pages   = {854--864},
+  year    = {2026},
+  doi     = {10.1080/10618600.2025.2572327}
 }
 ```
 
@@ -346,20 +349,20 @@ software or the use or other dealings in the software.
 ##  References
 
 Leng, C., Tran, M.-N., and Nott, D. (2014). “Bayesian Adaptive Lasso.”
-*Annals of the Institute of Statistical Mathematics*, 66, 221–244
+*Annals of the Institute of Statistical Mathematics*, **66**, 221–244.
 
-Marin, S., Loong, B., and Westveld, A. H. (2025+), “Adaptive Shrinkage
+Marin, S., Loong, B., and Westveld, A. H. (2026), “Adaptive Shrinkage
 with a Nonparametric Bayesian Lasso.” *Journal of Computational and
-Graphical Statistics*.
+Graphical Statistics*, **35**(2), 854–864.
 [doi:10.1080/10618600.2025.2572327](https://doi.org/10.1080/10618600.2025.2572327)
 
 Park, T. and Casella, G. (2008). “The Bayesian Lasso.” *Journal of the
-American Statistical Association*, 103 (482), 681–686.
+American Statistical Association*, **103**(482), 681–686.
 
 Vehtari, A., Gelman, A., and Gabry, J. (2017). “Practical Bayesian model
 evaluation using leave-one-out cross-validation and WAIC.” *Statistics
-and Computing* 27 1413–1432.
+and Computing* **27**, 1413–1432.
 
 Wade, S. and Ghahramani, Z. (2008). “Bayesian cluster analysis: Point
 estimation and credible balls (with discussion).” *Bayesian Analysis*,
-13 (2), 559–626.
+**13**(2), 559–626.
